@@ -1,0 +1,9 @@
+# Node.js関連
+node_modules/
+.next/
+*.log
+
+# 環境変数
+.env
+
+
