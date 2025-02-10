@@ -5,8 +5,15 @@ import fetchCustomer from "./fetchCustomer";
 import { useEffect, useState, use } from "react";
 
 export default function ReadPage(props) {
+
+  console.log("🚀 ReadPage Component Loaded"); // ✅ ページが読み込まれたか確認
+  console.log("Props received in ReadPage:", props); // ✅ `props` の値を確認
+  console.log("Params:", props.params); // ✅ `params` の値を確認
+
   const params = use(props.params);
   const id = params.id;
+
+  console.log("🆔 Extracted Customer ID:", id); // ✅ `id` の値を確認
 
   const [customerInfo, setCustomerInfo] = useState([]);
 
