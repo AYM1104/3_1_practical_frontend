@@ -1,10 +1,9 @@
 "use client";
-export const dynamic = "force-dynamic";
-
 import OneCustomerInfoCard from "@/app/components/one_customer_info_card.jsx";
 import fetchCustomer from "./fetchCustomer";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Suspense } from "react";
 
 // export default function ConfirmPage() {
 //   const router = useRouter();
@@ -34,33 +33,27 @@ import { useEffect, useState } from "react";
 //   );
 // }
 
-export default function ConfirmPage() {
+// メインコンポーネントをSuspenseでラップ
+export default function ConfirmPageWrapper() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ConfirmPage />
+    </Suspense>
+  )
+}
+
+function ConfirmPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const customer_id = searchParams?.get("customer_id");
+  const customer_id = searchParams().get("customer_id");
   const [customer, setCustomer] = useState(null);
 
   useEffect(() => {
     const fetchAndSetCustomer = async () => {
-      if (customer_id) {
-        try {
-          const customerData = await fetchCustomer(customer_id);
-          setCustomer(customerData);
-        } catch (error) {
-          console.error("Failed to fetch customer:", error);
-        }
-      }
+      const customerData = await fetchCustomer(customer_id);
+      setCustomer(customerData);
     };
     fetchAndSetCustomer();
-  }, [customer_id]);
-
-  if (!customer_id) {
-    return <div>Error: No customer ID provided.</div>;
-  }
-
-  if (!customer) {
-    return <div>Loading...</div>;
-  }
+  }, []);
 
   return (
     <>
