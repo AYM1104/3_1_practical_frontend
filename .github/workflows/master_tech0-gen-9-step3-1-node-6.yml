@@ -32,8 +32,15 @@ jobs:
           npm run build --if-present
           npm run test --if-present
       
-      - name: Build Next.js
-        run: npm run build
+      # 追加
+      - name: Build Next.js app
+        env:
+          NODE_ENV: production
+        run: npx next build
+
+      # 追加（確認用）
+      - name: Verify Next.js build output
+        run: ls -l .next
 
       #2
       - name: Copy artifact for deployment job
