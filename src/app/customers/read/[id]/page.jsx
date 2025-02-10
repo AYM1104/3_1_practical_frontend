@@ -12,6 +12,8 @@ export default function ReadPage(props) {
 
   useEffect(() => {
     const fetchAndSetCustomer = async () => {
+      // 確認用
+      console.log("Using API Endpoint:", process.env.NEXT_PUBLIC_API_ENDPOINT);
       const customerData = await fetchCustomer(id);
       setCustomerInfo(customerData);
     };
