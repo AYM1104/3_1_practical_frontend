@@ -44,7 +44,7 @@ export default function ConfirmPageWrapper() {
 
 function ConfirmPage() {
   const router = useRouter();
-  const customer_id = searchParams().get("customer_id");
+  const customer_id = searchParams?.get("customer_id");
   const [customer, setCustomer] = useState(null);
 
   useEffect(() => {
